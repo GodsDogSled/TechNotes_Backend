@@ -16,19 +16,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
-// mongoose.set('strictQuery', false)
-// logger.info('connecting to', config.MONGODB_URI)
-// const MONGODB_URI = process.env.MONGODB_URI as string
 app.use(express.json())
 app.use(cookieParser());
+
 connectDB()
-// mongoose.connect(MONGODB_URI)
-//   .then(() => {
-//     logger.info('connected to MongoDB')
-//   })
-//   .catch((error: unknown) => {
-//     logger.error('error connecting to MongoDB:', error)
-//   })
 
 app.use(cors())
 app.use(middleware.requestLogger)
