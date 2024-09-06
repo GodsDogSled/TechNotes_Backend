@@ -11,10 +11,11 @@ import asyncHandler from 'express-async-handler'
 //@desc Get all users
 //@route GET /users
 //@access Private
-export const getAllUsers = asyncHandler(async (_req: Request, res: Response): Promise<any> => {
+export const getAllUsers = asyncHandler(async (_req: Request, res: Response): Promise<void> => {
   const users = await UserModel.find().select('-password').lean()
   if (!users?.length) {
-    return res.status(400).json({ message: "No users found" })
+    res.status(400).json({ message: "No users found" })
+    return
   }
   res.json(users)
 })
@@ -61,14 +62,11 @@ export const updateUser = asyncHandler(async (_req: Request, res: Response): Pro
     return
   }
 
-
   const updatedUser = {
     username: username,
     roles: roles,
     active: active
   }
-
-
 
   const duplicate = await UserModel.findOne({ username }).lean().exec()
 

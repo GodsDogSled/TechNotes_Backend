@@ -28,12 +28,25 @@ const noteSchema = new mongoose.Schema(
   }
 )
 
+interface NoteDocument extends Document {
+  user: mongoose.Schema.Types.ObjectId;
+  title: string;
+  text: string;
+  completed: boolean;
+  ticket: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+
+
 noteSchema.plugin(AutoIncrement as any, {
   inc_field: 'ticket',
   id: 'ticketNums',
   start_seq: 500
 })
 
-const NoteModel = mongoose.model('Note', noteSchema)
+// const NoteModel = mongoose.model('Note', noteSchema)
+const NoteModel = mongoose.model<NoteDocument>('Note', noteSchema);
 
 export default NoteModel

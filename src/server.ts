@@ -4,6 +4,7 @@ import config from './config/config.js';
 import path from 'path'
 import rootRouter from './routes/root.js';
 import userRouter from './routes/userRouter.js';
+import noteRouter from './routes/noteRouter.js';
 import cookieParser from "cookie-parser"
 import logger from '../middleware/logger.js';
 import middleware from '../middleware/middleware.js';
@@ -13,6 +14,7 @@ import connectDB from './config/dbConn.js';
 const app = express();
 const PORT = process.env.PORT || 3500
 import { fileURLToPath } from 'url';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -29,6 +31,7 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.use('/', rootRouter)
 app.use('/user', userRouter)
+app.use('/note', noteRouter)
 
 app.all('*', (req, res) => {
   res.status(404)
