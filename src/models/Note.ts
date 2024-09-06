@@ -1,24 +1,26 @@
 import mongoose from "mongoose";
-import AutoIncrement from 'mongoose-sequence';
+import AutoIncrementFactory from 'mongoose-sequence';
+
+const AutoIncrement = AutoIncrementFactory(mongoose as any);
 
 const noteSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      require: true,
+      required: true,
       ref: 'User'
     },
     title: {
       type: String,
-      require: true
+      required: true
     },
     text: {
       type: String,
-      require: true
+      required: true
     },
     completed: {
       type: Boolean,
-      default: "false"
+      default: false
     },
   },
   {
@@ -26,7 +28,7 @@ const noteSchema = new mongoose.Schema(
   }
 )
 
-noteSchema.plugin(AutoIncrement, {
+noteSchema.plugin(AutoIncrement as any, {
   inc_field: 'ticket',
   id: 'ticketNums',
   start_seq: 500

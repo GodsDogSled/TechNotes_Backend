@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import config from './config/config.js';
 import path from 'path'
 import rootRouter from './routes/root.js';
+import userRouter from './routes/userRouter.js';
 import cookieParser from "cookie-parser"
 import logger from '../middleware/logger.js';
 import middleware from '../middleware/middleware.js';
@@ -27,6 +28,7 @@ app.use(middleware.requestLogger)
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.use('/', rootRouter)
+app.use('/user', userRouter)
 
 app.all('*', (req, res) => {
   res.status(404)
